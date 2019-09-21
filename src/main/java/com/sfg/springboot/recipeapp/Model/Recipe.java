@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 @Entity
@@ -32,6 +33,8 @@ public class Recipe {
 	private Byte[] image;
 	@OneToOne
 	private Notes notes;
+	@ManyToMany(cascade = CascadeType.ALL,mappedBy = "recipes")
+	private Set<Category> categories;
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "recipe")
 	private Set<Ingredient> ingredients;
 	
@@ -148,6 +151,14 @@ public class Recipe {
 
 	public void setIngredients(Set<Ingredient> ingredients) {
 		this.ingredients = ingredients;
+	}
+	
+	public Set<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(Set<Category> categories) {
+		this.categories = categories;
 	}
 
 	@Override
