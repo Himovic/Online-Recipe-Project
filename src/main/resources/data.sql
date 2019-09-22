@@ -4,6 +4,8 @@ INSERT INTO category(description) VALUES('Mexican');
 INSERT INTO category(description) VALUES('Fast food');
 INSERT INTO unit_of_mesure(uom) VALUES('Teaspoon');
 INSERT INTO unit_of_mesure(uom) VALUES('Tablespoon');
+INSERT INTO unit_of_mesure(uom) VALUES('Tbsp');
 INSERT INTO unit_of_mesure(uom) VALUES('Cup');
+INSERT INTO unit_of_mesure(uom) VALUES('Flaky');
 INSERT INTO unit_of_mesure(uom) VALUES('Pinch');
 INSERT INTO unit_of_mesure(uom) VALUES('Ounce');

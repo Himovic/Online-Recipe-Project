@@ -3,31 +3,29 @@ package com.sfg.springboot.recipeapp.Controllers;
 import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sfg.springboot.recipeapp.Model.Category;
 import com.sfg.springboot.recipeapp.Model.UnitOfMesure;
 import com.sfg.springboot.recipeapp.Repositories.CategoryRepository;
 import com.sfg.springboot.recipeapp.Repositories.UnityOfMesureRepository;
+import com.sfg.springboot.recipeapp.Service.RecipeService;
 
 @Controller
 public class IndexController {
 	
-	private CategoryRepository categoryRepository;
-	private UnityOfMesureRepository unitOfMesureRepository;
+	private RecipeService recipeService;
 	
-	public IndexController(CategoryRepository categoryRepository,UnityOfMesureRepository unitOfMesureRepository) {
-		this.categoryRepository = categoryRepository;
-		this.unitOfMesureRepository = unitOfMesureRepository;
+	public IndexController(RecipeService recipeService) {
+		this.recipeService = recipeService;
 	}
 	
 	@RequestMapping({"","/","/index"})
-	public String getIndexPage() {
-		Optional<Category> categoryOpt = categoryRepository.findByDescription("American");
-		Optional<UnitOfMesure> UomOpt = unitOfMesureRepository.findByUom("Cup");
+	public String getIndexPage(Model model) {
 		
-		System.out.println("American Category ID : "+categoryOpt.get().getId());
-		System.out.println("Cup UOM ID : "+UomOpt.get().getId());
+		model.addAttribute("recipes",recipeService.listRecipe());
+		
 		return "index";
 	}
 }
