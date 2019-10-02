@@ -7,6 +7,7 @@ import java.util.Set;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sfg.springboot.recipeapp.Model.Category;
 import com.sfg.springboot.recipeapp.Model.Difficulty;
@@ -18,6 +19,9 @@ import com.sfg.springboot.recipeapp.Repositories.CategoryRepository;
 import com.sfg.springboot.recipeapp.Repositories.RecipeRepository;
 import com.sfg.springboot.recipeapp.Repositories.UnityOfMesureRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
 	
@@ -33,11 +37,15 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
 	}
 	
 	@Override
+	@Transactional
 	public void onApplicationEvent(ContextRefreshedEvent event) {
+		log.debug("Application listener start");
 		recipeRepository.saveAll(SaveRecipe());
 	}
 
 	private Set<Recipe> SaveRecipe() {
+		
+		log.debug("I'am in the SaveRecipe() method");
 		
 		Set<Recipe> listRecipes = new HashSet<>();
 		
@@ -126,6 +134,8 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
 		
 		System.out.println("Loaded first recipe...");
 		listRecipes.add(crispyPotatoes);
+		
+		log.debug("Final SaveRecipe Method");
 		return listRecipes;
 	}
 }
